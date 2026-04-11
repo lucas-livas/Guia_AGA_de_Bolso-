@@ -111,20 +111,34 @@ class ThemeManager {
       gradientGuides: LinearGradient(colors: [Color(0xFF26A69A), Color(0xFF00897B)]),
     ),
 
-    // 5. ALTO CONTRASTE
+    // 5. ENERGÉTICO (LARANJA)
     const AppTheme(
-      name: 'Alto Contraste',
-      primary: Color(0xFF212121),
-      light: Color(0xFFE0E0E0),
-      dark: Color(0xFF000000),
-      background: Color(0xFFFFFFFF),
-      textPrimary: Colors.black,
-      gradientPatient: LinearGradient(colors: [Color(0xFF757575), Color(0xFF212121)]),
-      gradientFunctional: LinearGradient(colors: [Color(0xFF616161), Color(0xFF000000)]),
-      gradientCognitive: LinearGradient(colors: [Color(0xFF9E9E9E), Color(0xFF424242)]),
-      gradientClinical: LinearGradient(colors: [Color(0xFFBDBDBD), Color(0xFF616161)]),
-      gradientSocial: LinearGradient(colors: [Color(0xFF757575), Color(0xFF424242)]),
-      gradientGuides: LinearGradient(colors: [Color(0xFF9E9E9E), Color(0xFF212121)]),
+      name: 'Energético (Laranja)',
+      primary: Color(0xFFFF5722),
+      light: Color(0xFFFFCCBC),
+      dark: Color(0xFFE64A19),
+      background: Color(0xFFFFF3E0),
+      gradientPatient: LinearGradient(colors: [Color(0xFFFF8A65), Color(0xFFD84315)]),
+      gradientFunctional: LinearGradient(colors: [Color(0xFFFF7043), Color(0xFFBF360C)]),
+      gradientCognitive: LinearGradient(colors: [Color(0xFFFFB74D), Color(0xFFFF6E40)]),
+      gradientClinical: LinearGradient(colors: [Color(0xFFFFA726), Color(0xFFFF3D00)]),
+      gradientSocial: LinearGradient(colors: [Color(0xFFFFCC80), Color(0xFFFF6E40)]),
+      gradientGuides: LinearGradient(colors: [Color(0xFFFF8A65), Color(0xFFD84315)]),
+    ),
+    
+    // 6. SOFT (ROSA PASTEL)
+    const AppTheme(
+      name: 'Soft (Rosa Pastel)',
+      primary: Color(0xFFFFC1E3),
+      light: Color(0xFFFFE4F1),
+      dark: Color(0xFFFF8DAA),
+      background: Color(0xFFFFF0F5),
+      gradientPatient: LinearGradient(colors: [Color(0xFFFFB6C1), Color(0xFFFF69B4)]),
+      gradientFunctional: LinearGradient(colors: [Color(0xFFFFA07A), Color(0xFFFF6347)]),
+      gradientCognitive: LinearGradient(colors: [Color(0xFFFFDAB9), Color(0xFFFF7F50)]),
+      gradientClinical: LinearGradient(colors: [Color(0xFFFFC0CB), Color(0xFFFF69B4)]),
+      gradientSocial: LinearGradient(colors: [Color(0xFFFFE4E1), Color(0xFFFFB6C1)]),
+      gradientGuides: LinearGradient(colors: [Color(0xFFFFA07A), Color(0xFFFF6347)]),
     ),
   ];
 }
