@@ -1,0 +1,50 @@
+name: guia_aga_de_bolso
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+# Define o ambiente do Flutter/Dart
+# Usamos um range mais moderno e flexível
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_mobile_ads: ^7.0.0
+  # Pacotes de Banco de Dados e Utilitários
+  sqflite: ^2.3.0
+  path: ^1.8.3
+  intl: ^0.20.2 # versão nova do intl
+  mask_text_input_formatter: ^2.9.0
+  provider: ^6.0.5
+  shared_preferences: ^2.5.4
+  page_transition: ^2.0.9
+  cupertino_icons: ^1.0.5
+  # Pacotes de PDF e Impressão 
+  printing: ^5.14.2
+  pdf: ^3.11.3      
+
+
+  fl_chart: ^1.1.1 # ADICIONADO: O substituto moderno
+
+  flutter_localizations:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  rename: ^3.1.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/icon_app.png"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+
