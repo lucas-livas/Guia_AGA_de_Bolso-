@@ -67,7 +67,7 @@ const referenceData = {
 'Mini Exame do Estado Mental (MEEM)': ReferenceInfo(
     objective: 'Realizar um rastreio rápido e quantitativo do estado cognitivo do paciente, avaliando funções como orientação, memória, atenção, cálculo, linguagem e praxia construtiva. É uma ferramenta de rastreio, não de diagnóstico.',
     instructions: 'O exame consiste em 11 tarefas administradas verbalmente pelo avaliador, com duração de 5 a 10 minutos. As tarefas e suas pontuações máximas são:\n\n'
-                  '1. **Orientação Temporal (5 pts):** O fisioterapeuta deve perguntar ao paciente em que ano, estação, mês, dia da semana e dia do mês, estamos.\n'
+                  **'1. **Orientação Temporal (5 pts):** O fisioterapeuta deve perguntar ao paciente em que ano, estação, mês, dia da semana e em que data estamos.\n'**
                   '2. **Orientação Espacial (5 pts):** O fisioterapeuta deve perguntar ao paciente em que País, estado, cidade, local e andar, estamos.\n'
                   '3. **Registro (3 pts):** Repetir 3 palavras (ex: "carro, vaso, tijolo").\n'
                   '4. **Atenção e Cálculo (5 pts):** Subtrair 7 de 100 (5x) ou soletrar "MUNDO" ao contrário.\n'
@@ -77,7 +77,7 @@ const referenceData = {
                   '8. **Linguagem - Comando (3 pts):** Seguir um comando verbal de 3 estágios (exemplo "Pegue o papel com a mão direita, dobre no meio e bote o no chão").\n'
                   '9. **Linguagem - Leitura (1 pt):** O paciente deve, através de um papel ou tela, ler e obedecer a frase "FECHE OS OLHOS".\n'
                   '10. **Linguagem - Escrita (1 pt):** Escrever uma frase completa (A frase deve ter sentido lógico).\n'
-                  '11. **Praxia Construtiva (1 pt):** Copiar o desenho de dois pentágonos sobrepostos (se as figuras não teverem 5 (cinco) lados o ponto não será contado, seu os pntagonos não se sobreporem o ponto não será contado.)\n',
+                  '11. **Praxia Construtiva (1 pt):** Copiar o desenho de dois pentágonos sobrepostos (se as figuras não tiverem 5 (cinco) lados o ponto não será contado, seu os pentágonos não se sobreporem o ponto não será contado.)\n',
     scoring: 'A pontuação total máxima é de 30 pontos. A interpretação do resultado final depende crucialmente do nível de escolaridade do paciente.\n\n'
              '**Pontos de Corte Sugeridos para a População Brasileira:**\n'
              '• **Analfabetos:** Escore ≤ 13 sugere declínio cognitivo.\n'

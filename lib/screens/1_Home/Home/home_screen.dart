@@ -15,7 +15,7 @@ import 'package:guia_aga_de_bolso/screens/1_Home/Funcional/functional_submenu_sc
 import 'package:guia_aga_de_bolso/screens/1_Home/Mental/mental_submenu_screen.dart';
 import 'package:guia_aga_de_bolso/screens/1_Home/Clinico/clinical_conditions_submenu_screen.dart';
 import 'package:guia_aga_de_bolso/screens/1_Home/Func_e_Suporte_Social/social_support_submenu_screen.dart';
-import 'package:guia_aga_de_bolso/screens/reference_list_screen.dart';
+import 'package:guia_aga_de_bolso/screens/1_Home/Referencias/reference_list_screen.dart';
 
 // --- Modelo de Dados de Navegação ---
 class NavItem {
