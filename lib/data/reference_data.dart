@@ -67,7 +67,7 @@ const referenceData = {
 'Mini Exame do Estado Mental (MEEM)': ReferenceInfo(
     objective: 'Realizar um rastreio rápido e quantitativo do estado cognitivo do paciente, avaliando funções como orientação, memória, atenção, cálculo, linguagem e praxia construtiva. É uma ferramenta de rastreio, não de diagnóstico.',
     instructions: 'O exame consiste em 11 tarefas administradas verbalmente pelo avaliador, com duração de 5 a 10 minutos. As tarefas e suas pontuações máximas são:\n\n'
-                  **'1. **Orientação Temporal (5 pts):** O fisioterapeuta deve perguntar ao paciente em que ano, estação, mês, dia da semana e em que data estamos.\n'**
+                  '1. **Orientação Temporal (5 pts):** O fisioterapeuta deve perguntar ao paciente em que ano, estação, mês, dia da semana e em que data estamos.\n'
                   '2. **Orientação Espacial (5 pts):** O fisioterapeuta deve perguntar ao paciente em que País, estado, cidade, local e andar, estamos.\n'
                   '3. **Registro (3 pts):** Repetir 3 palavras (ex: "carro, vaso, tijolo").\n'
                   '4. **Atenção e Cálculo (5 pts):** Subtrair 7 de 100 (5x) ou soletrar "MUNDO" ao contrário.\n'

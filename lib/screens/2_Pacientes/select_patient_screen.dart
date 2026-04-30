@@ -1,5 +1,6 @@
 // lib/screens/select_patient_screen.dart
 // Tela para selecionar um paciente existente com busca e animações
+// Usuário é direcionado a essa tela após apertar/comfirma o botão "Salvar" em qualquer avaliação
 // Descrição: Permite ao usuário selecionar um paciente para salvar dados relacionados.
 // caminho: o usuario apartir da "tela de salvar" Presente em todos os testes avaliações e escalas pode acessa essa tela para escolher o paciente desejado.
 
@@ -62,7 +63,7 @@ class _SelectPatientScreenState extends State<SelectPatientScreen> {
 
   void _onSearchChanged() {
     final query = _searchController.text.toLowerCase().trim();
-    
+
     if (query.isEmpty) {
       setState(() {
         _filteredPatients = List.from(_allPatients);
@@ -222,7 +223,7 @@ class _SelectPatientScreenState extends State<SelectPatientScreen> {
 
   Widget _buildPatientList() {
     final patients = _isSearching ? _filteredPatients : _allPatients;
-    
+
     if (_isSearching && patients.isEmpty) {
       return Center(
         child: Column(
@@ -259,11 +260,11 @@ class _SelectPatientScreenState extends State<SelectPatientScreen> {
         physics: const AlwaysScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           final patient = patients[index];
-          
+
           if (index >= _showItems.length) {
             return const SizedBox.shrink();
           }
-          
+
           return AnimatedOpacity(
             opacity: _showItems[index] ? 1.0 : 0.0,
             duration: const Duration(milliseconds: 500),
@@ -282,8 +283,8 @@ class _SelectPatientScreenState extends State<SelectPatientScreen> {
                 child: ListTile(
                   contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                   leading: Icon(
-                    Icons.person, 
-                    size: 35, 
+                    Icons.person,
+                    size: 35,
                     color: Theme.of(context).primaryColor
                   ),
                   title: Text(
@@ -314,19 +315,19 @@ class _SelectPatientScreenState extends State<SelectPatientScreen> {
 
   Widget _buildPatientSubtitle(Patient patient) {
     final List<String> infoParts = [];
-    
+
     if (patient.birthDate.isNotEmpty) {
       infoParts.add('Nasc: ${patient.birthDate}');
     }
-    
+
     if (patient.gender.isNotEmpty) {
       infoParts.add(patient.gender);
     }
-    
+
     if (infoParts.isEmpty) {
       return const Text('Clique para selecionar');
     }
-    
+
     return Text(
       infoParts.join(' • '),
       style: const TextStyle(fontSize: 12),
@@ -498,19 +499,19 @@ class PatientSearchDelegate extends SearchDelegate<Patient?> {
 
   Widget _buildPatientSubtitle(Patient patient) {
     final List<String> infoParts = [];
-    
+
     if (patient.birthDate.isNotEmpty) {
       infoParts.add('Nasc: ${patient.birthDate}');
     }
-    
+
     if (patient.gender.isNotEmpty) {
       infoParts.add(patient.gender);
     }
-    
+
     if (infoParts.isEmpty) {
       return const Text('Clique para selecionar');
     }
-    
+
     return Text(
       infoParts.join(' • '),
       style: const TextStyle(fontSize: 12),

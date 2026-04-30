@@ -5,12 +5,12 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 // --- Imports do Projeto ---
 import 'package:guia_aga_de_bolso/Temas_Paletas/Temas_Gerenciador.dart';
 import 'package:guia_aga_de_bolso/widgets/assessment_widgets.dart';
-
-// --- CORREÇÃO AQUI: ADICIONE ESTA IMPORTAÇÃO ---
-import 'package:guia_aga_de_bolso/widgets/side_menu_drawer.dart'; 
+import 'package:guia_aga_de_bolso/widgets/side_menu_drawer.dart';
 
 // --- Imports de Telas ---
 import 'package:guia_aga_de_bolso/screens/2_Pacientes/patient_list_screen.dart';
+// NOVO: Importamos a tela de adicionar paciente
+import 'package:guia_aga_de_bolso/screens/2_Pacientes/add_edit_patient_screen.dart';
 import 'package:guia_aga_de_bolso/screens/1_Home/Funcional/functional_submenu_screen.dart';
 import 'package:guia_aga_de_bolso/screens/1_Home/Mental/mental_submenu_screen.dart';
 import 'package:guia_aga_de_bolso/screens/1_Home/Clinico/clinical_conditions_submenu_screen.dart';
@@ -41,50 +41,63 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // --- Configurações ---
-  static const bool _adsEnabled = false; 
-  static const String _adUnitId = 'ca-app-pub-3940256099942544/9214589741'; 
+  static const bool _adsEnabled = false;
+  static const String _adUnitId = 'ca-app-pub-3940256099942544/9214589741';
 
   // --- Estado ---
   BannerAd? _bannerAd;
   bool _isBannerAdLoaded = false;
-  // animações agora são locais aos itens para evitar rebuilds desnecessários
 
   // --- Itens do Menu ---
+  // ATENÇÃO: Os índices (posições) mudaram porque inserimos um novo item na posição 1.
   final List<NavItem> _menuItems = [
+    // Índice 0
     NavItem(
-      icon: Icons.assignment_outlined, 
-      label: 'Fichas de Pacientes', 
-      destination: const PatientListScreen(), 
+      icon: Icons.assignment_outlined,
+      label: 'Fichas de Pacientes',
+      destination: const PatientListScreen(),
       gradientBuilder: () => AssessmentGradients.patient
     ),
+    // Índice 1 - NOVO BOTÃO ADICIONADO AQUI
     NavItem(
-      icon: Icons.directions_run, 
-      label: 'FUNCIONAL', 
-      destination: const FunctionalSubmenuScreen(), 
+      icon: Icons.group_add_outlined,
+      label: 'Adicionar Paciente',
+      destination: const AddEditPatientScreen(),
+      gradientBuilder: () => AssessmentGradients.patient // Mantivemos o gradiente de paciente
+    ),
+    // Índice 2
+    NavItem(
+      icon: Icons.directions_run,
+      label: 'FUNCIONAL',
+      destination: const FunctionalSubmenuScreen(),
       gradientBuilder: () => AssessmentGradients.functional
     ),
+    // Índice 3
     NavItem(
-      icon: Icons.psychology_outlined, 
-      label: 'COGNIÇÃO', 
-      destination: const MentalSubmenuScreen(), 
+      icon: Icons.psychology_outlined,
+      label: 'COGNIÇÃO',
+      destination: const MentalSubmenuScreen(),
       gradientBuilder: () => AssessmentGradients.cognitive
     ),
+    // Índice 4
     NavItem(
-      icon: Icons.medical_services_outlined, 
-      label: 'CLÍNICO', 
-      destination: const ClinicalConditionsSubmenuScreen(), 
+      icon: Icons.medical_services_outlined,
+      label: 'CLÍNICO',
+      destination: const ClinicalConditionsSubmenuScreen(),
       gradientBuilder: () => AssessmentGradients.clinical
     ),
+    // Índice 5
     NavItem(
-      icon: Icons.group_outlined, 
-      label: 'SÓCIO AMBIENTAL', 
-      destination: const SocialSupportSubmenuScreen(), 
+      icon: Icons.group_outlined,
+      label: 'SÓCIO AMBIENTAL',
+      destination: const SocialSupportSubmenuScreen(),
       gradientBuilder: () => AssessmentGradients.social
     ),
+    // Índice 6
     NavItem(
-      icon: Icons.menu_book_outlined, 
-      label: 'GUIAS & REFERÊNCIAS', 
-      destination: const ReferenceListScreen(), 
+      icon: Icons.menu_book_outlined,
+      label: 'GUIAS & REFERÊNCIAS',
+      destination: const ReferenceListScreen(),
       gradientBuilder: () => AssessmentGradients.guides
     ),
   ];
@@ -92,7 +105,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Pre-cache do logo para evitar jank na primeira pintura
     WidgetsBinding.instance.addPostFrameCallback((_) {
       precacheImage(const AssetImage('assets/images/logo_aga.png'), context);
     });
@@ -106,7 +118,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // --- Lógica de Negócio ---
-
   void _loadBannerAd() {
     _bannerAd = BannerAd(
       adUnitId: _adUnitId,
@@ -127,17 +138,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // --- Construção da UI ---
-
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<AppTheme>(
       valueListenable: ThemeManager().currentThemeNotifier,
       builder: (context, currentTheme, child) {
         return Scaffold(
-          backgroundColor: AssessmentColors.backgroundLight, 
+          backgroundColor: AssessmentColors.backgroundLight,
           appBar: _buildAppBar(),
-          // Agora o SideMenuDrawer será encontrado graças ao import
-          drawer: const SideMenuDrawer(), 
+          drawer: const SideMenuDrawer(),
           body: Column(
             children: [
               Expanded(child: _buildMainContent()),
@@ -157,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
       centerTitle: true,
       title: Image.asset(
         "assets/images/logo_aga.png",
-        height: 45,
+        height: 60,
         errorBuilder: (_, __, ___) => Text(
           "Guia AGA",
           style: TextStyle(color: AssessmentColors.textPrimary, fontWeight: FontWeight.bold),
@@ -171,20 +180,28 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
+          // Botão 0: Fichas de Pacientes
           _buildAnimatedCard(0, _navCardFactory(0, wide: true)),
+
+          const SizedBox(height: 16), // Novo espaçamento para separar os botões
+
+          // Botão 1: Novo botão "Adicionar Paciente" (também usamos a versão 'wide' - larga)
+          _buildAnimatedCard(1, _navCardFactory(1, wide: true)),
 
           const SizedBox(height: 24),
           const AssessmentSectionHeader(title: 'DIMENSÕES DA AVALIAÇÃO'),
           const SizedBox(height: 16),
 
-          _buildGridRow(1, 2),
+          // Lembre-se: os números foram ajustados (+1) por conta da nova adição
+          _buildGridRow(2, 3), // Antes era 1 e 2 (Funcional e Cognitivo)
           const SizedBox(height: 16),
-          _buildGridRow(3, 4),
+          _buildGridRow(4, 5), // Antes era 3 e 4 (Clínico e Sócio Ambiental)
 
           const SizedBox(height: 24),
 
-          _buildAnimatedCard(5, _navCardFactory(5, wide: true)),
-          
+          // Botão 6: Guias e Referências (Antes era o índice 5)
+          _buildAnimatedCard(6, _navCardFactory(6, wide: true)),
+
           const SizedBox(height: 20),
         ],
       ),
@@ -217,7 +234,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _navCardFactory(int index, {bool wide = false}) {
     final item = _menuItems[index];
-    final currentGradient = item.gradientBuilder(); 
+    final currentGradient = item.gradientBuilder();
 
     if (wide) {
       return AssessmentWideNavCard(
@@ -241,9 +258,8 @@ class _HomeScreenState extends State<HomeScreen> {
       child: child,
     );
   }
-
 }
- 
+
 class StaggeredAnimated extends StatefulWidget {
   final Widget child;
   final Duration delay;

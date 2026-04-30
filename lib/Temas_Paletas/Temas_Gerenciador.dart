@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppTheme {
   final String name;
-  
+
   // Cores Sólidas
   final Color primary;
   final Color light;
@@ -39,14 +40,33 @@ class ThemeManager {
   factory ThemeManager() => _instance;
   ThemeManager._internal();
 
-  // O tema atual é simplesmente a paleta selecionada
+  // Chave para salvar o índice do tema na memória
+  static const String _themePrefKey = 'tema_selecionado_index';
+
+  // O tema atual começa com a primeira paleta da lista
   final ValueNotifier<AppTheme> currentThemeNotifier = ValueNotifier(palettes[0]);
 
   static AppTheme get current => _instance.currentThemeNotifier.value;
 
-  // Método simplificado: apenas troca a paleta
-  void switchTheme(AppTheme newTheme) {
+  // Método para carregar o tema salvo quando o app inicia
+  Future<void> loadTheme() async {
+    final prefs = await SharedPreferences.getInstance();
+    final int? savedIndex = prefs.getInt(_themePrefKey);
+
+    if (savedIndex != null && savedIndex >= 0 && savedIndex < palettes.length) {
+      currentThemeNotifier.value = palettes[savedIndex];
+    }
+  }
+
+  // Método para trocar o tema e salvar a escolha
+  Future<void> switchTheme(AppTheme newTheme) async {
     currentThemeNotifier.value = newTheme;
+
+    final index = palettes.indexOf(newTheme);
+    if (index != -1) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt(_themePrefKey, index);
+    }
   }
 
   // --- PALETAS DE CORES E GRADIENTES ---
@@ -125,7 +145,7 @@ class ThemeManager {
       gradientSocial: LinearGradient(colors: [Color(0xFFFFCC80), Color(0xFFFF6E40)]),
       gradientGuides: LinearGradient(colors: [Color(0xFFFF8A65), Color(0xFFD84315)]),
     ),
-    
+
     // 6. SOFT (ROSA PASTEL)
     const AppTheme(
       name: 'Soft (Rosa Pastel)',

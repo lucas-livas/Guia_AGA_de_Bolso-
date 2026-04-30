@@ -21,9 +21,10 @@ dependencies:
   shared_preferences: ^2.5.4
   page_transition: ^2.0.9
   cupertino_icons: ^1.0.5
-  # Pacotes de PDF e Impressão 
+  flutter_markdown: ^0.6.10
+  # Pacotes de PDF e Impressão
   printing: ^5.14.2
-  pdf: ^3.11.3      
+  pdf: ^3.11.3
 
 
   fl_chart: ^1.1.1 # ADICIONADO: O substituto moderno
