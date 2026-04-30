@@ -1,0 +1,62 @@
+# Normalize line endings and keep diffs stable across Windows/WSL/macOS/Linux.
+# Source/config/docs files use LF. Windows batch files keep CRLF.
+
+* text=auto
+
+# Dart / Flutter / common source and config
+*.dart text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.xml text eol=lf
+*.plist text eol=lf
+*.storyboard text eol=lf
+*.xib text eol=lf
+*.xcconfig text eol=lf
+*.pbxproj text eol=lf
+*.swift text eol=lf
+*.kt text eol=lf
+*.kts text eol=lf
+*.gradle text eol=lf
+*.properties text eol=lf
+*.cmake text eol=lf
+CMakeLists.txt text eol=lf
+*.cpp text eol=lf
+*.cc text eol=lf
+*.c text eol=lf
+*.h text eol=lf
+*.hpp text eol=lf
+*.rc text eol=lf
+*.manifest text eol=lf
+*.entitlements text eol=lf
+*.sh text eol=lf
+*.gitignore text eol=lf
+
+# Windows command files
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary assets/build artifacts
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.jar binary
+*.apk binary
+*.aab binary
+*.keystore binary
+*.jks binary
+*.db binary
+*.sqlite binary
+*.ttf binary
+*.otf binary
+*.bin binary
+*.dill binary
