@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -22,10 +23,13 @@ class _AppInitializerState extends State<AppInitializer> {
 
   Future<void> _initialize() async {
     WidgetsFlutterBinding.ensureInitialized();
-    try {
-      await MobileAds.instance.initialize();
-    } catch (_) {
-      // ignore errors during ads init; app should still run
+    // Inicializa ads apenas em dispositivos móveis (não na web)
+    if (!kIsWeb) {
+      try {
+        await MobileAds.instance.initialize();
+      } catch (_) {
+        // ignore errors during ads init; app should still run
+      }
     }
     // pequeno atraso para permitir que splash mostre
     await Future.delayed(const Duration(milliseconds: 200));

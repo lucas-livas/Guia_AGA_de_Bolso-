@@ -5,7 +5,7 @@ import 'package:guia_aga_de_bolso/screens/1_Home/Funcional/lawton_brody_screen.d
 import 'package:guia_aga_de_bolso/screens/1_Home/Funcional/tug_screen.dart';
 import 'package:guia_aga_de_bolso/screens/1_Home/Funcional/berg_screen.dart';
 import 'package:guia_aga_de_bolso/screens/1_Home/Funcional/katz_screen.dart';
-import 'package:guia_aga_de_bolso/screens/1_Home/Funcional/MIF_screen.dart';
+import 'package:guia_aga_de_bolso/screens/1_Home/Funcional/mif_screen.dart';
 
 class FunctionalSubmenuScreen extends StatelessWidget {
   const FunctionalSubmenuScreen({super.key});
@@ -22,6 +22,10 @@ class FunctionalSubmenuScreen extends StatelessWidget {
       backgroundColor: AssessmentColors.backgroundLight,
       
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.home),
+          onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
+        ),
         title: const Text('Estado Funcional'),
         centerTitle: true,
         backgroundColor: AssessmentColors.backgroundLight,

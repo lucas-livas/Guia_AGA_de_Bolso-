@@ -61,7 +61,7 @@ class ThemeSelectionScreen extends StatelessWidget {
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
+                            color: Colors.black.withValues(alpha: 0.05),
                             blurRadius: 8,
                             offset: const Offset(0, 2),
                           )
@@ -91,7 +91,7 @@ class ThemeSelectionScreen extends StatelessWidget {
                         subtitle: Text(
                           isSelected ? 'Ativo' : 'Toque para ativar',
                           style: TextStyle(
-                            color: isSelected ? theme.primary.withOpacity(0.8) : Colors.grey,
+                            color: isSelected ? theme.primary.withValues(alpha: 0.8) : Colors.grey,
                           ),
                         ),
                       ),

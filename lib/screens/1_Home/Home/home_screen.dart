@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 // --- Imports do Projeto ---
 import 'package:guia_aga_de_bolso/Temas_Paletas/Temas_Gerenciador.dart';
@@ -9,12 +7,11 @@ import 'package:guia_aga_de_bolso/widgets/side_menu_drawer.dart';
 
 // --- Imports de Telas ---
 import 'package:guia_aga_de_bolso/screens/2_Pacientes/patient_list_screen.dart';
-// NOVO: Importamos a tela de adicionar paciente
 import 'package:guia_aga_de_bolso/screens/2_Pacientes/add_edit_patient_screen.dart';
 import 'package:guia_aga_de_bolso/screens/1_Home/Funcional/functional_submenu_screen.dart';
 import 'package:guia_aga_de_bolso/screens/1_Home/Mental/mental_submenu_screen.dart';
 import 'package:guia_aga_de_bolso/screens/1_Home/Clinico/clinical_conditions_submenu_screen.dart';
-import 'package:guia_aga_de_bolso/screens/1_Home/Func_e_Suporte_Social/social_support_submenu_screen.dart';
+import 'package:guia_aga_de_bolso/screens/1_Home/social_support/social_support_submenu_screen.dart';
 import 'package:guia_aga_de_bolso/screens/1_Home/Referencias/reference_list_screen.dart';
 
 // --- Modelo de Dados de Navegação ---
@@ -40,16 +37,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // --- Configurações ---
-  static const bool _adsEnabled = false;
-  static const String _adUnitId = 'ca-app-pub-3940256099942544/9214589741';
-
-  // --- Estado ---
-  BannerAd? _bannerAd;
-  bool _isBannerAdLoaded = false;
-
   // --- Itens do Menu ---
-  // ATENÇÃO: Os índices (posições) mudaram porque inserimos um novo item na posição 1.
   final List<NavItem> _menuItems = [
     // Índice 0
     NavItem(
@@ -58,12 +46,12 @@ class _HomeScreenState extends State<HomeScreen> {
       destination: const PatientListScreen(),
       gradientBuilder: () => AssessmentGradients.patient
     ),
-    // Índice 1 - NOVO BOTÃO ADICIONADO AQUI
+    // Índice 1
     NavItem(
       icon: Icons.group_add_outlined,
       label: 'Adicionar Paciente',
       destination: const AddEditPatientScreen(),
-      gradientBuilder: () => AssessmentGradients.patient // Mantivemos o gradiente de paciente
+      gradientBuilder: () => AssessmentGradients.patient
     ),
     // Índice 2
     NavItem(
@@ -75,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // Índice 3
     NavItem(
       icon: Icons.psychology_outlined,
-      label: 'COGNIÇÃO',
+      label: 'SAÚDE MENTAL',
       destination: const MentalSubmenuScreen(),
       gradientBuilder: () => AssessmentGradients.cognitive
     ),
@@ -89,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // Índice 5
     NavItem(
       icon: Icons.group_outlined,
-      label: 'SÓCIO AMBIENTAL',
+      label: 'SUPORTE SOCIAL',
       destination: const SocialSupportSubmenuScreen(),
       gradientBuilder: () => AssessmentGradients.social
     ),
@@ -108,31 +96,14 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       precacheImage(const AssetImage('assets/images/logo_aga.png'), context);
     });
-    if (_adsEnabled) _loadBannerAd();
   }
 
   @override
   void dispose() {
-    _bannerAd?.dispose();
     super.dispose();
   }
 
   // --- Lógica de Negócio ---
-  void _loadBannerAd() {
-    _bannerAd = BannerAd(
-      adUnitId: _adUnitId,
-      request: const AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(
-        onAdLoaded: (_) { if (mounted) setState(() => _isBannerAdLoaded = true); },
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-          debugPrint('Erro no AdMob: $error');
-        },
-      ),
-    )..load();
-  }
-
   void _navigateTo(Widget screen) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => screen));
   }
@@ -147,11 +118,31 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: AssessmentColors.backgroundLight,
           appBar: _buildAppBar(),
           drawer: const SideMenuDrawer(),
-          body: Column(
-            children: [
-              Expanded(child: _buildMainContent()),
-              _buildAdFooter(),
-            ],
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                // Botão 0: Fichas de Pacientes (-wide)
+                _buildAnimatedCard(0, _navCardFactory(0, wide: true)),
+                const SizedBox(height: 16),
+
+                // Botão 1: Adicionar Paciente (wide)
+                _buildAnimatedCard(1, _navCardFactory(1, wide: true)),
+
+                const SizedBox(height: 24),
+
+                const SizedBox(height: 24),
+                const AssessmentSectionHeader(title: 'DIMENSÕES DA AVALIAÇÃO'),
+                const SizedBox(height: 16),
+                _buildGridRow(2, 3),
+                const SizedBox(height: 16),
+                _buildGridRow(4, 5),
+
+                const SizedBox(height: 24),
+                _buildAnimatedCard(6, _navCardFactory(6, wide: true)),
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
         );
       },
@@ -175,52 +166,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildMainContent() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          // Botão 0: Fichas de Pacientes
-          _buildAnimatedCard(0, _navCardFactory(0, wide: true)),
-
-          const SizedBox(height: 16), // Novo espaçamento para separar os botões
-
-          // Botão 1: Novo botão "Adicionar Paciente" (também usamos a versão 'wide' - larga)
-          _buildAnimatedCard(1, _navCardFactory(1, wide: true)),
-
-          const SizedBox(height: 24),
-          const AssessmentSectionHeader(title: 'DIMENSÕES DA AVALIAÇÃO'),
-          const SizedBox(height: 16),
-
-          // Lembre-se: os números foram ajustados (+1) por conta da nova adição
-          _buildGridRow(2, 3), // Antes era 1 e 2 (Funcional e Cognitivo)
-          const SizedBox(height: 16),
-          _buildGridRow(4, 5), // Antes era 3 e 4 (Clínico e Sócio Ambiental)
-
-          const SizedBox(height: 24),
-
-          // Botão 6: Guias e Referências (Antes era o índice 5)
-          _buildAnimatedCard(6, _navCardFactory(6, wide: true)),
-
-          const SizedBox(height: 20),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAdFooter() {
-    if (!_adsEnabled || !_isBannerAdLoaded || _bannerAd == null) {
-      return const SizedBox.shrink();
-    }
-    return SafeArea(
-      top: false,
-      child: SizedBox(
-        height: _bannerAd!.size.height.toDouble(),
-        width: _bannerAd!.size.width.toDouble(),
-        child: AdWidget(ad: _bannerAd!),
-      ),
-    );
-  }
 
   Widget _buildGridRow(int idx1, int idx2) {
     return Row(
@@ -252,50 +197,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildAnimatedCard(int index, Widget child) {
-    return StaggeredAnimated(
-      delay: Duration(milliseconds: 300 + index * 100),
-      child: child,
-    );
+  Widget _buildAnimatedCard(int index, Widget card) {
+    return card;
   }
 }
 
-class StaggeredAnimated extends StatefulWidget {
-  final Widget child;
-  final Duration delay;
-  const StaggeredAnimated({super.key, required this.child, this.delay = Duration.zero});
-
-  @override
-  State<StaggeredAnimated> createState() => _StaggeredAnimatedState();
-}
-
-class _StaggeredAnimatedState extends State<StaggeredAnimated> with SingleTickerProviderStateMixin {
-  late final AnimationController _ctrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
-  late final Animation<Offset> _offset = Tween(begin: const Offset(0, 0.15), end: Offset.zero).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOutBack));
-  late final Animation<double> _opacity = CurvedAnimation(parent: _ctrl, curve: Curves.easeOut);
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(widget.delay, () {
-      if (mounted) _ctrl.forward();
-    });
-  }
-
-  @override
-  void dispose() {
-    _ctrl.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _opacity,
-      child: SlideTransition(
-        position: _offset,
-        child: widget.child,
-      ),
-    );
-  }
-}

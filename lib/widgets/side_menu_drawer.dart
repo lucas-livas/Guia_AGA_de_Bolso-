@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:guia_aga_de_bolso/widgets/assessment_widgets.dart';
 import 'package:guia_aga_de_bolso/screens/3_Configuracoes/theme_selection_screen.dart';
 // IMPORTAÇÃO DA NOVA TELA DE LIXEIRA
-import 'package:guia_aga_de_bolso/screens/3_Configuracoes/trash_screen.dart'; 
+import 'package:guia_aga_de_bolso/screens/3_Configuracoes/trash_screen.dart';
 
 class SideMenuDrawer extends StatelessWidget {
   const SideMenuDrawer({super.key});
@@ -54,33 +54,43 @@ class SideMenuDrawer extends StatelessWidget {
 
           const SizedBox(height: 20),
 
+          // Drawer simplificado apenas com configurações (navegação principal na Home)
+          _buildNavDivider('CONFIGURAÇÕES'),
+          _buildMenuItem(
+            context,
+            icon: Icons.settings_outlined,
+            text: 'Configurações',
+            onTap: () {
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Funcionalidade "Configurações" em breve.')),
+              );
+            },
+          ),
           _buildMenuItem(
             context,
             icon: Icons.palette_outlined,
             text: 'Paleta de Cores',
             onTap: () {
-              Navigator.pop(context); // Fecha o menu
+              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const ThemeSelectionScreen()),
               );
             },
           ),
-
           _buildMenuItem(
             context,
             icon: Icons.delete_outline,
             text: 'Lixeira',
             onTap: () {
-              Navigator.pop(context); // Fecha o menu
-              // --- CORREÇÃO AQUI: Navegar para a TrashScreen ---
+              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const TrashScreen()),
               );
             },
           ),
-
           _buildMenuItem(
             context,
             icon: Icons.headset_mic_outlined,
@@ -92,6 +102,8 @@ class SideMenuDrawer extends StatelessWidget {
               );
             },
           ),
+
+
 
           const Spacer(),
 
@@ -110,6 +122,21 @@ class SideMenuDrawer extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildNavDivider(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, top: 20, bottom: 8),
+      child: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w700,
+          letterSpacing: 1.2,
+          color: AssessmentColors.textDisabled,
+        ),
       ),
     );
   }

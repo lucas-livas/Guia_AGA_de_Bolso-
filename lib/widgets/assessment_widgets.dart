@@ -94,7 +94,7 @@ class AssessmentWideNavCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(25),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.15),
+            color: Colors.black.withValues(alpha: 0.15),
             blurRadius: 5,
             offset: const Offset(0, 3),
           ),
@@ -221,7 +221,7 @@ class AssessmentSubmenuItem extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: (iconColor ?? AssessmentColors.primaryBlue).withOpacity(0.1),
+                  color: (iconColor ?? AssessmentColors.primaryBlue).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
@@ -371,9 +371,9 @@ class AssessmentSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.3), width: 1),
+        border: Border.all(color: color.withValues(alpha: 0.3), width: 1),
       ),
       child: Text('$currentPoints/$maxPoints', style: AssessmentTextStyles.scorePill.copyWith(color: color)),
     );
@@ -422,7 +422,7 @@ class AssessmentCheckboxItem extends StatelessWidget {
               if (leading != null) ...[leading!, const SizedBox(height: 4)],
               Text(title, style: AssessmentTextStyles.itemTitle.copyWith(color: enabled ? AssessmentColors.textPrimary : AssessmentColors.textDisabled)),
               if (subtitle != null) ...[const SizedBox(height: 2), Text(subtitle!, style: AssessmentTextStyles.itemSubtitle.copyWith(color: enabled ? AssessmentColors.textSecondary : AssessmentColors.textDisabled))],
-              if (instruction != null) ...[const SizedBox(height: 4), AssessmentInstructionText(text: instruction!, showBackground: true, backgroundColor: AssessmentColors.lightBlue.withOpacity(0.2))],
+              if (instruction != null) ...[const SizedBox(height: 4), AssessmentInstructionText(text: instruction!, showBackground: true, backgroundColor: AssessmentColors.lightBlue.withValues(alpha: 0.2))],
             ],
           ),
           value: value,
@@ -520,7 +520,7 @@ class AssessmentInstructionText extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: showBackground
-          ? BoxDecoration(color: backgroundColor ?? AssessmentColors.lightBlue.withOpacity(0.3), borderRadius: BorderRadius.circular(4), border: Border.all(color: AssessmentColors.primaryBlue.withOpacity(0.2), width: 1))
+          ? BoxDecoration(color: backgroundColor ?? AssessmentColors.lightBlue.withValues(alpha: 0.3), borderRadius: BorderRadius.circular(4), border: Border.all(color: AssessmentColors.primaryBlue.withValues(alpha: 0.2), width: 1))
           : null,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -553,7 +553,7 @@ class AssessmentSectionHeader extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: backgroundColor ?? AssessmentColors.primaryBlue.withOpacity(0.05),
+        color: backgroundColor ?? AssessmentColors.primaryBlue.withValues(alpha: 0.05),
         border: Border(
           bottom: BorderSide(color: Colors.grey.shade300, width: 1),
         ),
@@ -711,7 +711,7 @@ class PatientIdentityCard extends StatelessWidget {
         border: Border.all(color: Colors.grey.shade200), 
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           )
@@ -723,7 +723,7 @@ class PatientIdentityCard extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             margin: const EdgeInsets.only(right: 16),
             decoration: BoxDecoration(
-              color: AssessmentColors.primaryBlue.withOpacity(0.1),
+              color: AssessmentColors.primaryBlue.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(Icons.person, size: 40, color: AssessmentColors.primaryBlue),
@@ -826,7 +826,7 @@ class PatientInfoCard extends StatelessWidget {
         border: Border.all(color: Colors.grey.shade200), 
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           )
@@ -839,7 +839,7 @@ class PatientInfoCard extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.only(right: 16, top: 4),
             decoration: BoxDecoration(
-              color: Colors.orange.withOpacity(0.1),
+              color: Colors.orange.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: const Icon(Icons.badge_outlined, size: 30, color: AssessmentColors.warningOrange),
@@ -899,7 +899,7 @@ class PatientInfoCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, size: 16, color: color.withOpacity(0.8)), 
+          Icon(icon, size: 16, color: color.withValues(alpha: 0.8)), 
           const SizedBox(width: 8), 
           Expanded(
             child: Text(text, style: const TextStyle(fontSize: 13, color: Colors.black87))
@@ -933,7 +933,7 @@ class PatientDetailRow extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start, 
           children: [
             if (icon != null) ...[
-              Icon(icon, size: 20, color: AssessmentColors.primaryBlue.withOpacity(0.6)), 
+              Icon(icon, size: 20, color: AssessmentColors.primaryBlue.withValues(alpha: 0.6)), 
               const SizedBox(width: 12)
             ], 
             Expanded(
@@ -1036,7 +1036,7 @@ class AssessmentReportTitle extends StatelessWidget {
           Container(
             height: 2,
             width: 40,
-            color: AssessmentColors.primaryBlue.withOpacity(0.5),
+            color: AssessmentColors.primaryBlue.withValues(alpha: 0.5),
           ),
         ],
       ),
@@ -1084,9 +1084,9 @@ class AssessmentNotesBox extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       margin: const EdgeInsets.only(top: 4),
       decoration: BoxDecoration(
-        color: AssessmentColors.lightBlue.withOpacity(0.2),
+        color: AssessmentColors.lightBlue.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AssessmentColors.primaryBlue.withOpacity(0.1)),
+        border: Border.all(color: AssessmentColors.primaryBlue.withValues(alpha: 0.1)),
       ),
       child: Text(
         notes, 

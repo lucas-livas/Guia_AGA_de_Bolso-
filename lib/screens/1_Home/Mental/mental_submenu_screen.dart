@@ -22,6 +22,10 @@ class MentalSubmenuScreen extends StatelessWidget {
       backgroundColor: AssessmentColors.backgroundLight,
       
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.home),
+          onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
+        ),
         title: const Text('Saúde Mental'),
         backgroundColor: AssessmentColors.backgroundLight,
         foregroundColor: AssessmentColors.textPrimary,
